@@ -1,30 +1,66 @@
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
+
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    public Resume[] storage = new Resume[10000];
+    private int count = 0;
+    private Resume tempOneResume = null;
 
-    void clear() {
+    public void clear() {
+        Arrays.fill(storage, null);
     }
 
-    void save(Resume r) {
+    public void save(Resume r) {
+        storage[count] = r;
+        count++;
     }
 
-    Resume get(String uuid) {
-        return null;
+    public Resume get(String uuid) {
+        findUuid(uuid);
+        return tempOneResume;
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                storage[i] = null;
+            }
+        }
+        deleteNull();
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
-        return new Resume[0];
+    public Resume[] getAll() {
+        deleteNull();
+        return Arrays.copyOf(storage, storage.length);
     }
 
     int size() {
-        return 0;
+        return count;
+    }
+    private void findUuid(String uuid) {
+        for (Resume resume : storage) {
+            if (resume.getUuid().equals(uuid)) {
+                tempOneResume = resume;
+                break;
+            }
+        }
+    }
+    private void deleteNull() {
+        Resume[] tempResume = new Resume[storage.length - 1];
+        count = 0;
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i] != null) {
+                tempResume[count] = storage[i];
+                count++;
+            }
+            storage = tempResume;
+        }
     }
 }
+
