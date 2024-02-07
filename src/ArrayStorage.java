@@ -17,7 +17,7 @@ public class ArrayStorage {
     Resume get(String uuid) {
         int number = getNumber(uuid);
         if (number == -1) {
-			System.out.println("Resume is empty");
+			System.out.println("Resume is not found");
 			return null;
 		}
 		return storage[number];
