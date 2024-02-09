@@ -2,52 +2,52 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-
 public class ArrayStorage {
-    Resume[] storage = new Resume[4];
-    int count = 0;
-    Resume tempResume = null;
-    
+    Resume[] storage = new Resume[10000];
+    int count;
+
     void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage,0, count - 1, null);
+        count = 0;
     }
+    
     void save(Resume r) {
         storage[count] = r;
         count++;
     }
+    
     Resume get(String uuid) {
-        tempResume = null;
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                tempResume = storage[i];
-            }
+        int index = findIndex(uuid);
+        if (index == -1) {
+            System.out.println("Resume is not found");
+            return null;
         }
-        return tempResume;
+        return storage[index];
     }
+    
     void delete(String uuid) {
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = null;
-            }
-        }
-        deleteNull();
+        int index = findIndex(uuid);
+        storage[index] = storage[count - 1];
+        storage[count - 1] = null;
+        count--;
     }
+    
     Resume[] getAll() {
-        deleteNull();
-        return Arrays.copyOf(storage, storage.length);
+        Resume[] resumes = new Resume[count];
+        System.arraycopy(storage, 0, resumes, 0, count);
+        return resumes;
     }
+    
     int size() {
         return count;
     }
-    void deleteNull() {
-        Resume[] tempResume = new Resume[storage.length - 1];
-        count = 0;
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] != null) {
-                tempResume[count] = storage[i];
-                count++;
+    
+    int findIndex(String uuid) {
+        for (int i = 0; i < count; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                return i;
             }
-            storage = tempResume;
         }
+        return -1;
     }
 }
