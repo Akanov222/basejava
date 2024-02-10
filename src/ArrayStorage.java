@@ -8,8 +8,10 @@ public class ArrayStorage {
     int count;
 
     void clear() {
-        Arrays.fill(storage, 0, count - 1, null);
-        count = 0;
+        if(count != 0 ) {
+            Arrays.fill(storage, 0, count, null);
+            count = 0;
+        }
     }
 
     void save(Resume r) {
@@ -27,10 +29,12 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int index = findIndex(uuid);
-        storage[index] = storage[count - 1];
-        storage[count - 1] = null;
-        count--;
+        if(count != 0 ) {
+            int index = findIndex(uuid);
+            storage[index] = storage[count - 1];
+            storage[count - 1] = null;
+            count--;
+        }
     }
 
     Resume[] getAll() {
