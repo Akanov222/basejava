@@ -31,6 +31,10 @@ public class ArrayStorage {
     void delete(String uuid) {
         if(count != 0 ) {
             int index = findIndex(uuid);
+            if (index == -1) {
+            System.out.println("Resume is not found");
+            return null;
+            }
             storage[index] = storage[count - 1];
             storage[count - 1] = null;
             count--;
