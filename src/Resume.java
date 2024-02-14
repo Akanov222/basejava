@@ -3,11 +3,19 @@
  */
 public class Resume {
 
-    // Unique identifier
-    String uuid;
+	// Unique identifier
+	private String uuid;
 
-    @Override
-    public String toString() {
-        return uuid;
-    }
+	@Override
+	public String toString() {
+		return uuid;
+	}
+
+	public void saveUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
 }
