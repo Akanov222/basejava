@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class ArrayStorage {
 	int STORAGE_LIMIT = 10000;
 	private final Resume[] storage = new Resume[STORAGE_LIMIT];
+	private int index;
 	private int size;
 
 	public void clear() {
@@ -14,18 +15,19 @@ public class ArrayStorage {
 	}
 
 	public void save(Resume resume) {
+		index = findIndex(resume.getUuid());
 		if (size >= STORAGE_LIMIT) {
 			System.out.println("This storage is not overflow");
-		} else if (findIndex(resume) >= 0) {
+		} else if (index >= 0) {
 			System.out.println("This resume is already in the repository");
-		} else if (findIndex(resume) == -1) {
+		} else {
 			storage[size] = resume;
 			size++;
 		}
 	}
 
 	public void update(Resume resume) {
-		int index = findIndex(resume);
+		index = findIndex(resume.getUuid());
 		if (index != -1) {
 			storage[index] = resume;
 		} else {
@@ -34,7 +36,7 @@ public class ArrayStorage {
 	}
 
 	public Resume get(String uuid) {
-		int index = findIndex(uuid);
+		index = findIndex(uuid);
 		if (index == -1) {
 			System.out.println("Resume is not found");
 			return null;
@@ -43,7 +45,7 @@ public class ArrayStorage {
 	}
 
 	public void delete(String uuid) {
-		int index = findIndex(uuid);
+		index = findIndex(uuid);
 		if (index == -1) {
 			System.out.println("Resume is not found");
 		}
@@ -54,8 +56,7 @@ public class ArrayStorage {
 
 	public Resume[] getAll() {
 		Resume[] resumes = new Resume[size];
-		resumes = Arrays.copyOf(storage, size);
-		return resumes;
+		return Arrays.copyOf(storage, size);
 	}
 
 	public int size() {
@@ -65,15 +66,6 @@ public class ArrayStorage {
 	private int findIndex(String uuid) {
 		for (int i = 0; i < size; i++) {
 			if (storage[i].getUuid().equals(uuid)) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	private int findIndex(Resume resume) {
-		for (int i = 0; i < size; i++) {
-			if (resume.equals(storage[i])) {
 				return i;
 			}
 		}
