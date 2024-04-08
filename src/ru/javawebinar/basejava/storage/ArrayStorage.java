@@ -1,10 +1,13 @@
+import ru.javawebinar.basejava.storage.AbstractArrayStorage;
+import ru.javawebinar.basejava.storage.Storage;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-	int STORAGE_LIMIT = 10000;
+public class ArrayStorage extends AbstractArrayStorage {
+	private static final int STORAGE_LIMIT = 10000;
 	private final Resume[] storage = new Resume[STORAGE_LIMIT];
 	private int index;
 	private int size;
@@ -35,15 +38,6 @@ public class ArrayStorage {
 		}
 	}
 
-	public Resume get(String uuid) {
-		index = findIndex(uuid);
-		if (index == -1) {
-			System.out.println("Resume is not found");
-			return null;
-		}
-		return storage[index];
-	}
-
 	public void delete(String uuid) {
 		index = findIndex(uuid);
 		if (index == -1) {
@@ -56,14 +50,14 @@ public class ArrayStorage {
 
 	public Resume[] getAll() {
 		Resume[] resumes = new Resume[size];
-		return Arrays.copyOf(storage, size);
+		return Arrays.copyOfRange(storage, 0, size);
 	}
 
 	public int size() {
 		return size;
 	}
 
-	private int findIndex(String uuid) {
+	protected int findIndex(String uuid) {
 		for (int i = 0; i < size; i++) {
 			if (storage[i].getUuid().equals(uuid)) {
 				return i;
