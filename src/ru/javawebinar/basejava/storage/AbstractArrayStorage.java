@@ -12,7 +12,7 @@ public abstract class AbstractArrayStorage implements Storage {
 	protected int size;
 //	protected int index;
 
-	public  int size() {
+	public int size() {
 		return size;
 	}
 
