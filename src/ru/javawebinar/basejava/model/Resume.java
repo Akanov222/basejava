@@ -1,8 +1,11 @@
 package ru.javawebinar.basejava.model;
+
+import org.jetbrains.annotations.NotNull;
+
 /**
  * ru.javawebinar.basejava.model.Resume class
  */
-public class Resume /*implements Comparable<Resume>*/ {
+public class Resume implements Comparable<Resume> {
 
 	// Unique identifier
 	private String uuid;
@@ -20,7 +23,7 @@ public class Resume /*implements Comparable<Resume>*/ {
 		return uuid;
 	}
 
-/*
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -42,7 +45,4 @@ public class Resume /*implements Comparable<Resume>*/ {
 	public int compareTo(Resume o) {
 		return uuid.compareTo(o.uuid);
 	}
-
-	*/
-
 }
