@@ -2,48 +2,58 @@ package ru.javawebinar.basejava;
 
 import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.storage.ArrayStorage;
+import ru.javawebinar.basejava.storage.Storage;
+
+import java.util.Arrays;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-	static ArrayStorage arrayStorage = new ArrayStorage();
+	private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
 	public static void main(String[] args) {
-		Resume r1 = new Resume();
-		r1.setUuid("uuid1");
-		Resume r2 = new Resume();
-		r2.setUuid("uuid2");
-		Resume r3 = new Resume();
-        r3.setUuid("uuid3");
-//        Resume rUpdate = new Resume();
-//        rUpdate.setUuid("uuid3");
+		final Resume resume1 = new Resume();
+		resume1.setUuid("uuid1");
+		final Resume resume2 = new Resume();
+		resume2.setUuid("uuid2");
+		final Resume resume3 = new Resume();
+		resume3.setUuid("uuid8");
+		final Resume resume4 = new Resume();
+		resume4.setUuid("uuid4");
+		final Resume resume5 = new Resume();
+		resume5.setUuid("uuid5");
 
-		System.out.println(r1 == r2);
+		System.out.println(resume1 == resume2);
 
-		arrayStorage.save(r1);
-		arrayStorage.save(r2);
-		arrayStorage.save(r3);
+		ARRAY_STORAGE.save(resume1);
+		ARRAY_STORAGE.save(resume2);
+		ARRAY_STORAGE.save(resume3);
+		ARRAY_STORAGE.save(resume4);
+		ARRAY_STORAGE.save(resume5);
 
-		System.out.println("Get r1: " + arrayStorage.get(r1.getUuid()));
-		System.out.println("Size: " + arrayStorage.size());
-
-		System.out.println("Get dummy: " + arrayStorage.get("dummy"));
-		
-//		ARRAY_STORAGE.update(rUpdate);
-		printAll();
-		arrayStorage.delete(r1.getUuid());
-		printAll();
-		arrayStorage.clear();
 		printAll();
 
-		System.out.println("Size: " + arrayStorage.size());
+		System.out.println("Get resume1: " + ARRAY_STORAGE.get(resume1.getUuid()));
+		System.out.println("Size: " + ARRAY_STORAGE.size());
+		System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+
+		ARRAY_STORAGE.update(resume4);
+		printAll();
+
+		ARRAY_STORAGE.delete("uuid2");
+		printAll();
+
+		ARRAY_STORAGE.clear();
+		printAll();
+
+		System.out.println("Size: " + ARRAY_STORAGE.size());
 	}
 
-	public static void printAll() {
+	private static void printAll() {
 		System.out.println("\nGet All");
-		for (Resume r : arrayStorage.getAll()) {
-			System.out.println(r);
+		for (Resume resume : ARRAY_STORAGE.getAll()) {
+			System.out.println(resume);
 		}
 	}
 }
