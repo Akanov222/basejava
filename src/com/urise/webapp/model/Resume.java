@@ -1,14 +1,18 @@
-package ru.javawebinar.basejava.model;
-
-import org.jetbrains.annotations.NotNull;
+package com.urise.webapp.model;
 
 /**
  * ru.javawebinar.basejava.model.Resume class
  */
 public class Resume implements Comparable<Resume> {
-
-	// Unique identifier
 	private String uuid;
+
+
+	public Resume() {
+	}
+
+	public Resume(String uuid) {
+		this.setUuid(uuid);
+	}
 
 	public String getUuid() {
 		return uuid;
@@ -22,7 +26,6 @@ public class Resume implements Comparable<Resume> {
 	public String toString() {
 		return uuid;
 	}
-
 
 	@Override
 	public boolean equals(Object o) {
