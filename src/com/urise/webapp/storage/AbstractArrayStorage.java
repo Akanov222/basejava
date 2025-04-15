@@ -1,6 +1,9 @@
-package ru.javawebinar.basejava.storage;
+package com.urise.webapp.storage;
 
-import ru.javawebinar.basejava.model.Resume;
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
+import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
@@ -13,36 +16,36 @@ public abstract class AbstractArrayStorage implements Storage {
 	protected int size;
 	protected int index;
 
-	public void clear() {
+	public final void clear() {
 		Arrays.fill(storage, 0, size, null);
 		size = 0;
 	}
 
 	public void update(Resume resume) {
 		int index = getIndex(resume.getUuid());
-		if (index == -1) {
-			System.out.println("Resume " + resume.getUuid() + " not exist");
+		if (index < 0) {
+			throw new NotExistStorageException(resume.getUuid());
 		} else {
 			storage[index] = resume;
 		}
 	}
 
-	public void save(Resume resume) {
+	public final void save(Resume resume) {
 		int index = getIndex(resume.getUuid());
 		if (index > 0) {
-			System.out.println("Resume " + resume.getUuid() + " already exist");
+			throw new ExistStorageException(resume.getUuid());
 		} else if (size >= storage.length) {
-			System.out.println("Storage overflow");
+			throw new StorageException("Storage overflow", resume.getUuid());
 		} else {
 			insertResume(resume, index);
 			size++;
 		}
 	}
 
-	public void delete(String uuid) {
+	public final void delete(String uuid) {
 		int index = getIndex(uuid);
 		if (index < 0) {
-			System.out.println("Resume " + uuid + " not exist");
+			throw new NotExistStorageException(uuid);
 		} else {
 			deleteAndMoveElements(index);
 			storage[size - 1] = null;
@@ -57,8 +60,7 @@ public abstract class AbstractArrayStorage implements Storage {
 	public Resume get(String uuid) {
 		int index = getIndex(uuid);
 		if (index < 0) {
-			System.out.println("Resume " + uuid + " not exist");
-			return null;
+			throw new NotExistStorageException(uuid);
 		}
 		return storage[index];
 	}

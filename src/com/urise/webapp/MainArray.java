@@ -1,7 +1,7 @@
-package ru.javawebinar.basejava;
+package com.urise.webapp;
 
-import ru.javawebinar.basejava.model.Resume;
-import ru.javawebinar.basejava.storage.ArrayStorage;
+import com.urise.webapp.storage.ArrayStorage;
+import com.urise.webapp.model.Resume;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
  */
 public class MainArray {
     private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
-
+/*
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
@@ -72,5 +72,5 @@ public class MainArray {
             }
         }
         System.out.println("----------------------------");
-    }
+    }*/
 }

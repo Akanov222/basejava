@@ -1,8 +1,8 @@
-package ru.javawebinar.basejava;
+package com.urise.webapp;
 
-import ru.javawebinar.basejava.model.Resume;
-import ru.javawebinar.basejava.storage.SortedArrayStorage;
-import ru.javawebinar.basejava.storage.Storage;
+import com.urise.webapp.storage.SortedArrayStorage;
+import com.urise.webapp.storage.Storage;
+import com.urise.webapp.model.Resume;
 
 public class MainTestSortedArrayStorage {
 

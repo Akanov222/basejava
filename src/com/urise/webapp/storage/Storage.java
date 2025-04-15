@@ -1,6 +1,6 @@
-package ru.javawebinar.basejava.storage;
+package com.urise.webapp.storage;
 
-import ru.javawebinar.basejava.model.Resume;
+import com.urise.webapp.model.Resume;
 
 public interface Storage {
 	void clear();
